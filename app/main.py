@@ -15,9 +15,9 @@ from app.exceptions.exceptions_handlers import exception_handlers
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     logger.info('Starting application')
+    await create_db()
+    logger.info('Database init')
     if settings.MODE == 'DEV':
-        await create_db()
-        logger.info('Database init')
         logger.info(f'Swagger: {settings.SERVICE_SWAGGER_URL}')
     yield
     logger.info("Stopping application")
@@ -29,6 +29,12 @@ app = FastAPI(
     lifespan=lifespan,
     exception_handlers=exception_handlers
 )
+
+
+@app.get('/health')
+async def health():
+    logger.info('Health check')
+    return {"status": "ok"}
 
 
 def custom_openapi():
