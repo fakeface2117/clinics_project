@@ -31,6 +31,7 @@ class AppointmentsService:
             AppointmentTable.start_time == appointment_info.start_time
         ))
         if exist_appointment.first():
+            logger.warning(f"Appointment already exists for doctor_id {appointment_info.doctor_id} and start_time {appointment_info.start_time}")
             raise AppointmentAlreadyExistsException(
                 doctor_id=appointment_info.doctor_id,
                 start_time=appointment_info.start_time
@@ -47,7 +48,7 @@ class AppointmentsService:
         record = result.scalar_one_or_none()
         if not record:
             logger.warning(f'Appointment with id {appointment_id} not found')
-            raise AppointmentNotFoundException
+            raise AppointmentNotFoundException(appointment_id=appointment_id)
         return AppointmentSchema.model_validate(record)
 
     @db_connection
