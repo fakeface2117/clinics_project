@@ -3,7 +3,6 @@ from functools import wraps
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 
 from app.core.config import settings
-from app.core.custom_logger import logger
 from app.database.base import Base
 
 engine = create_async_engine(settings.DB_CONNECTION_STRING)
@@ -33,8 +32,7 @@ def db_connection(func):
         async with async_session_maker() as session:
             try:
                 return await func(*args, session=session, **kwargs)
-            except Exception as ex:
-                logger.exception(f"Exception occurred: {ex}")
+            except Exception:
                 await session.rollback()
                 raise
             finally:
