@@ -26,8 +26,11 @@ class Settings(BaseSettings):
     def DB_CONNECTION_STRING(self):
         return f"{self.DRIVER}://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
-    # интервал для записи к врачу в минутах, например 15, 20, 30
+    # интервал для записи к врачу в минутах, например 15, 20, 30.
     APPOINTMENTS_INTERVAL_MINUTES: int = os.getenv('APPOINTMENTS_INTERVAL_MINUTES')
+    # начало и конец рабочего дня
+    WORK_START: str = os.getenv('WORK_START')
+    WORK_END: str = os.getenv('WORK_END')
 
 
 settings = Settings()
