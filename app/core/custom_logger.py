@@ -1,11 +1,8 @@
 import logging.config
 
-from app.core.config import settings
 
-if settings.MODE == 'DEV':
-    LOG_DEFAULT_HANDLERS = ['console']
-else:
-    LOG_DEFAULT_HANDLERS = ['file']
+LOG_DEFAULT_HANDLERS = ['console']
+
 
 STDOUT_FORMAT = '%(log_color)s[%(asctime)s] - [%(levelname)s] - %(filename)s:%(lineno)d - %(message)s'
 FILE_FORMAT = '[%(asctime)s] - [%(levelname)s] - %(filename)s:%(lineno)d - %(message)s'
@@ -45,6 +42,7 @@ LOGGING_CONFIG = {
         },
         'access': {
             'formatter': 'verbose',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'stream': 'ext://sys.stdout',
         },
@@ -59,6 +57,7 @@ LOGGING_CONFIG = {
             'level': 'INFO',
         },
         'uvicorn.access': {
+            'handlers': ['access'],
             'level': 'INFO'
         },
     },
