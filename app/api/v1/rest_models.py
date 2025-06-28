@@ -9,10 +9,7 @@ from app.exceptions.exceptions import IncorrectAppointmentTimeException
 
 
 class AppointmentSchema(BaseModel):
-    model_config = ConfigDict(
-        from_attributes=True,
-        use_enum_values=True
-    )
+    model_config = ConfigDict(from_attributes=True, use_enum_values=True)
     id: int
     doctor_id: int
     patient_id: int
@@ -35,7 +32,7 @@ class AppointmentCreateSchema(BaseModel):
         dt_minus = combined_high_time_range - timedelta(minutes=appointment_minutes)
         return dt_minus.time()
 
-    @model_validator(mode='before')
+    @model_validator(mode="before")
     @classmethod
     def validate_times(cls, data: Any):
         if isinstance(data, dict):
@@ -70,5 +67,3 @@ class AvailableAppointmentsSchema(BaseModel):
     doctor_id: int = Field(gt=0)
     target_date: date
     available_appointments: list[str] | None = None
-
-

@@ -10,5 +10,5 @@ class AppointmentAdmin(ModelView, model=AppointmentTable):
         AppointmentTable.patient_id,
         AppointmentTable.start_time,
         AppointmentTable.end_time,
-        AppointmentTable.description
+        AppointmentTable.description,
     ]

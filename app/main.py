@@ -16,28 +16,28 @@ from app.exceptions.exceptions_handlers import exception_handlers
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    logger.info('Starting application')
+    logger.info("Starting application")
     await create_db()
-    logger.info('Database init')
-    if settings.MODE == 'DEV':
-        logger.info(f'Swagger: {settings.SERVICE_SWAGGER_URL}')
+    logger.info("Database init")
+    if settings.MODE == "DEV":
+        logger.info(f"Swagger: {settings.SERVICE_SWAGGER_URL}")
     yield
     logger.info("Stopping application")
 
 
 app = FastAPI(
-    docs_url=f'{settings.SERVICE_BASE_URL}/openapi',
-    openapi_url=f'{settings.SERVICE_BASE_URL}/openapi.json',
+    docs_url=f"{settings.SERVICE_BASE_URL}/openapi",
+    openapi_url=f"{settings.SERVICE_BASE_URL}/openapi.json",
     lifespan=lifespan,
-    exception_handlers=exception_handlers
+    exception_handlers=exception_handlers,
 )
 admin = Admin(app, engine)
 admin.add_view(AppointmentAdmin)
 
 
-@app.get('/health')
+@app.get("/health")
 async def health():
-    logger.info('Health check')
+    logger.info("Health check")
     return {"status": "ok"}
 
 
@@ -49,7 +49,7 @@ def custom_openapi():
         version=project_version,
         description=project_description,
         routes=app.routes,
-        tags=tags_metadata
+        tags=tags_metadata,
     )
     app.openapi_schema = openapi_schema
     return app.openapi_schema
@@ -57,12 +57,9 @@ def custom_openapi():
 
 app.openapi = custom_openapi
 
-app.include_router(appointments_router, prefix=settings.SERVICE_BASE_URL, tags=['Appointments'])
+app.include_router(appointments_router, prefix=settings.SERVICE_BASE_URL, tags=["Appointments"])
 
 if __name__ == "__main__":
     uvicorn.run(
-        "main:app",
-        host=settings.SERVICE_LOCAL_HOST,
-        port=settings.SERVICE_LOCAL_PORT,
-        log_config=LOGGING_CONFIG
+        "main:app", host=settings.SERVICE_LOCAL_HOST, port=settings.SERVICE_LOCAL_PORT, log_config=LOGGING_CONFIG
     )

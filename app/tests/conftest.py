@@ -7,7 +7,7 @@ from app.database.base import Base
 
 @pytest.fixture
 async def in_memory_db():
-    assert settings.MODE == 'TEST'
+    assert settings.MODE == "TEST"
     async_engine = create_async_engine("sqlite+aiosqlite:///:memory:")
     async with async_engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
@@ -17,11 +17,7 @@ async def in_memory_db():
 @pytest.fixture
 async def session_factory(in_memory_db):
     yield async_sessionmaker(
-        bind=in_memory_db,
-        expire_on_commit=False,
-        class_=AsyncSession,
-        autocommit=False,
-        autoflush=False
+        bind=in_memory_db, expire_on_commit=False, class_=AsyncSession, autocommit=False, autoflush=False
     )
 
 

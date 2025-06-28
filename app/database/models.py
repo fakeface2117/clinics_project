@@ -7,6 +7,7 @@ from app.database.base import Base
 
 class AppointmentTable(Base):
     """Таблица записей к врачу"""
+
     __tablename__ = "appointments"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, index=True)

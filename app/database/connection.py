@@ -6,11 +6,7 @@ from app.database.base import Base
 engine = create_async_engine(settings.DB_CONNECTION_STRING)
 
 async_session_maker = async_sessionmaker(
-    bind=engine,
-    expire_on_commit=False,
-    class_=AsyncSession,
-    autocommit=False,
-    autoflush=False
+    bind=engine, expire_on_commit=False, class_=AsyncSession, autocommit=False, autoflush=False
 )
 
 

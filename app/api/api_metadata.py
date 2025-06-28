@@ -34,9 +34,4 @@ project_description = """
 
 *если возникают вопросы, задавайте*
 """
-tags_metadata = [
-    {
-        "name": "Appointments",
-        "description": "Группа роутеров по работе с записями пациентов к врачу"
-    }
-]
+tags_metadata = [{"name": "Appointments", "description": "Группа роутеров по работе с записями пациентов к врачу"}]
