@@ -20,3 +20,5 @@ coverage.xml
 .git*
 ./postgres-data
 README*
+Dockerfile
+docker-compose*
