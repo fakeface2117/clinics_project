@@ -1,6 +1,5 @@
 import logging.config
 
-
 STDOUT_FORMAT = '%(log_color)s[%(asctime)s] - [%(levelname)s] - %(filename)s:%(lineno)d - %(message)s'
 
 LOGGING_CONFIG = {
@@ -23,30 +22,20 @@ LOGGING_CONFIG = {
     'handlers': {
         'console': {
             'formatter': 'verbose',
-            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'stream': 'ext://sys.stdout',
         }
     },
     'loggers': {
-        '': {
+        'root': {
             'handlers': ['console'],
             'level': 'INFO',
         },
-        # 'uvicorn.error': {
-        #     'handlers': ['console'],
-        #     'level': 'INFO',
-        # },
-        # 'uvicorn.access': {
-        #     'handlers': ['console'],
-        #     'level': 'INFO'
-        # },
-    },
-    # 'root': {
-    #     'level': 'INFO',
-    #     'formatter': 'verbose',
-    #     'handlers': ['console'],
-    # },
+        'uvicorn.access': {
+            'handlers': ['console'],
+            'level': 'INFO'
+        },
+    }
 }
 
 logging.config.dictConfig(LOGGING_CONFIG)
