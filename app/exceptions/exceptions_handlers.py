@@ -5,7 +5,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 
 from app.core.custom_logger import logger
-from app.exceptions.exceptions import ConflictException, NotFoundException, IncorrectDataException
+from app.exceptions.exceptions import ConflictException, IncorrectDataException, NotFoundException
 
 
 async def incorrect_data_exception_handler(_: Request, exc: IncorrectDataException) -> JSONResponse:
