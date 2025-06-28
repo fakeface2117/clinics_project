@@ -19,3 +19,4 @@ coverage.xml
 *.log
 .git*
 ./postgres-data
+README*

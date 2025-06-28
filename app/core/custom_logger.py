@@ -1,11 +1,7 @@
 import logging.config
 
 
-LOG_DEFAULT_HANDLERS = ['console']
-
-
 STDOUT_FORMAT = '%(log_color)s[%(asctime)s] - [%(levelname)s] - %(filename)s:%(lineno)d - %(message)s'
-FILE_FORMAT = '[%(asctime)s] - [%(levelname)s] - %(filename)s:%(lineno)d - %(message)s'
 
 LOGGING_CONFIG = {
     'version': 1,
@@ -20,11 +16,7 @@ LOGGING_CONFIG = {
                 'ERROR': 'red',
                 'CRITICAL': 'bold_red',
             },
-            'format': STDOUT_FORMAT,
-            'datefmt': '%Y-%m-%d %H:%M:%S'
-        },
-        'file': {
-            'format': FILE_FORMAT,
+            'format': '%(log_color)s[%(asctime)s] - [%(levelname)s] - %(filename)s:%(lineno)d - %(message)s',
             'datefmt': '%Y-%m-%d %H:%M:%S'
         }
     },
@@ -33,39 +25,28 @@ LOGGING_CONFIG = {
             'formatter': 'verbose',
             'level': 'INFO',
             'class': 'logging.StreamHandler',
-        },
-        'file': {
-            'formatter': 'file',
-            'level': 'WARNING',
-            'class': 'logging.FileHandler',
-            'filename': 'app.log',
-        },
-        'access': {
-            'formatter': 'verbose',
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
             'stream': 'ext://sys.stdout',
-        },
+        }
     },
     'loggers': {
         '': {
-            'handlers': LOG_DEFAULT_HANDLERS,
+            'handlers': ['console'],
             'level': 'INFO',
         },
-        'uvicorn.error': {
-            'handlers': ['file'],
-            'level': 'INFO',
-        },
-        'uvicorn.access': {
-            'handlers': ['access'],
-            'level': 'INFO'
-        },
+        # 'uvicorn.error': {
+        #     'handlers': ['console'],
+        #     'level': 'INFO',
+        # },
+        # 'uvicorn.access': {
+        #     'handlers': ['console'],
+        #     'level': 'INFO'
+        # },
     },
-    'root': {
-        'level': 'INFO',
-        'formatter': 'verbose',
-        'handlers': LOG_DEFAULT_HANDLERS,
-    },
+    # 'root': {
+    #     'level': 'INFO',
+    #     'formatter': 'verbose',
+    #     'handlers': ['console'],
+    # },
 }
 
 logging.config.dictConfig(LOGGING_CONFIG)
