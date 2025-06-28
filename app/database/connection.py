@@ -1,5 +1,3 @@
-from functools import wraps
-
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 
 from app.core.config import settings
@@ -24,18 +22,3 @@ async def get_async_session() -> AsyncSession:
 async def create_db() -> None:
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-
-
-def db_connection(func):
-    @wraps(func)
-    async def wrapper(*args, **kwargs):
-        async with async_session_maker() as session:
-            try:
-                return await func(*args, session=session, **kwargs)
-            except Exception:
-                await session.rollback()
-                raise
-            finally:
-                await session.close()
-
-    return wrapper
