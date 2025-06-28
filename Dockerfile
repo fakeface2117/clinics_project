@@ -15,7 +15,7 @@ RUN poetry install --no-root
 RUN useradd -m app && chown -R app:app /code
 USER app
 
-COPY --chown=app:app . .
+COPY app app
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=30s --retries=3 CMD curl -f http://localhost:8000/health || exit 1
 
