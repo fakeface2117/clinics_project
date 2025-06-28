@@ -3,12 +3,14 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
+from sqladmin import Admin
 
 from app.api.api_metadata import tags_metadata, project_description, project_version, project_title
 from app.api.v1.router_appointments import appointments_router
 from app.core.config import settings
 from app.core.custom_logger import logger, LOGGING_CONFIG
-from app.database.connection import create_db
+from app.database.admin import AppointmentAdmin
+from app.database.connection import create_db, engine
 from app.exceptions.exceptions_handlers import exception_handlers
 
 
@@ -29,6 +31,8 @@ app = FastAPI(
     lifespan=lifespan,
     exception_handlers=exception_handlers
 )
+admin = Admin(app, engine)
+admin.add_view(AppointmentAdmin)
 
 
 @app.get('/health')
