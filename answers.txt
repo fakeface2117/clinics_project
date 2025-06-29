@@ -1,0 +1,8 @@
+Python - 9
+FastAPI - 10
+Docker - 8
+GitHub Actions - 7
+SQL - 9
+код с ИИ - зависит от задачи (3-8)
+Английский - да
+Задачи - Jira kanban
