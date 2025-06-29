@@ -16,4 +16,6 @@
 | **CI/CD (GitHub Actions)** | Запускает линтеры (`black`, `flake8`, `isort`) и тесты (`pytest`) перед мержем или пушем кода. | `Makefile`, `pytest`                   | Автоматический запуск при `git push`             |
 | **Tests**                  | Юнит- и интеграционные тесты (логика, БД).                                                | `pytest`                 | `test_unit_new_appointment()`                      |
 | **Makefile**               | Упрощает запуск задач: линтинг, тесты.                                                         | `black`, `flake8`, `pytest`            | `make lint`, `make test`                         |
+
+
 ![arch.png](arch.png)
